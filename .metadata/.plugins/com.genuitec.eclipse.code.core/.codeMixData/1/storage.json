@@ -1,0 +1,14 @@
+{
+    "telemetry.machineId": "165047ae4c6e538757def3022789e48500f2096a0c9120d4e08f03f106ded120",
+    "openedPathsList": {
+        "workspaces3": [
+            {
+                "id": "488301ed0a7050f3e34f0a8a96a8af8a",
+                "configURIPath": "file:///c%3A/eclipse/imc/.metadata/codemix.code-workspace"
+            }
+        ],
+        "files2": []
+    },
+    "theme": "vs-dark",
+    "themeBackground": "#221a0f"
+}

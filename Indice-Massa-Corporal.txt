@@ -1,0 +1,77 @@
+// Table de Usuários
+Create table usuarios(
+	idUser int auto_increment primary Key
+	nome varchar(100) not null,
+	email varchar(100) unique not null,
+	data_nascimento date,
+	sexo ENUM('M', 'F', 'OUTRO'),
+	altura decimal(3, 2) not null,
+	data_criacao timestamp default current_timestamp
+);
+
+// Table de Classificação padrão
+ 
+Create table classificacoes_imc (
+	idClassif int auto_increment primary key,
+	categoria varchar(50) not null,
+	imc_minimo decimal(5, 2) not null,
+	imc_maximo decimal(5, 2) not null,
+	risco_saude varchar(100) not null,
+);
+
+
+// Relacionamentos sugeridos
+
+create table registro_imc (
+	idRegi int auto_increment primary key,
+	idUser int not null,
+	peso decimal(5, 2) not null,
+	imc decimal(5, 2) not null,
+	idClassif int,
+	data_registro timestamp default current_timestamp,
+	observacoes text,
+	foreign key (idUser) references usuarios(idUser),
+	foreign key (idClassif) references classificacoes_imc(idClassif)
+);
+
+// Inserts com Relacionamentos (MYSQL)
+-- Tabela usuarios
+INSERT INTO usuarios (nome, email, data_nascimento, sexo, altura) VALUES
+('João da Silva', 'joao@email.com', '1990-05-15', 'M', 1.75),
+('Maria Souza', 'maria@email.com', '1985-11-22', 'F', 1.62),
+('Alex Gomes', 'alex@email.com', '2000-02-10', 'OUTRO', 1.80);
+
+-- Tabela classificacoes_imc
+INSERT INTO classificacoes_imc (categoria, imc_minimo, imc_maximo, risco_saude) VALUES
+('Magreza', 0.00, 18.49, 'Risco aumentado de doenças'),
+('Normal', 18.50, 24.99, 'Menor risco de doenças'),
+('Sobrepeso', 25.00, 29.99, 'Risco moderado de doenças');
+
+-- Tabela registro_imc
+INSERT INTO registro_imc (idUser, peso, imc, idClassif, observacoes) VALUES
+(1, 60.5, 19.76, 2, 'Peso saudável para altura.'),
+(2, 48.0, 18.29, 1, 'Abaixo do peso recomendado.'),
+(3, 86.0, 26.54, 3, 'Leve sobrepeso detectado.');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

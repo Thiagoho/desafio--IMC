@@ -1,36 +1,45 @@
 package br.imc.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "registro_imc")
-@Data
+
 @NoArgsConstructor
+
 @AllArgsConstructor
-
 public class RegistroImc {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idRegi;
-	
-	private Double peso;
-	private Double imc;
-	private String observacoes;
-	
-	@ManyToOne
-	@JoinColumn(name = "idUser", nullable = false)
-	@JsonIgnore
-	private Usuario usuario;
-	
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idRegi;
+
+    @Column(nullable = false, precision = 5, scale = 2)
+    private BigDecimal peso;
+
+    @Column(nullable = false, precision = 5, scale = 2)
+    private BigDecimal imc;
+
+    @Column(name = "data_registro", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime dataRegistro;
+
+    @Column(columnDefinition = "TEXT")
+    private String observacoes;
+
+    // Relacionamento com Usuario (idUser)
+    @ManyToOne
+    @JoinColumn(name = "idUser", nullable = false)
+    @JsonIgnore
+    private Usuario usuario;
+
+    // Relacionamento com ClassificacaoImc (idClassif)
+    @ManyToOne
+    @JoinColumn(name = "idClassif")
+    private ClassificacaoImc classificacao;
 }

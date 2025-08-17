@@ -55,6 +55,19 @@ public class UsuarioControlller {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
+		
+	
+	}
+	// Delete: Remover Usuário
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+		if (usuarioRepository.existsById(id)) {
+			usuarioRepository.deleteById(id);
+			return ResponseEntity.noContent().build();
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+		
 	}
 		
 

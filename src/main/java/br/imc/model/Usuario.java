@@ -3,12 +3,23 @@ package br.imc.model;
 
 
 
-import jakarta.persistence.*;
-import lombok.*;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Entity
 @Table(name = "usuarios")
@@ -41,7 +52,8 @@ public class Usuario {
     @Column(name = "data_criacao")
     private LocalDateTime dataCriacao;
 
-    
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RegistroImc> registros;
     // Enum interno para os valores do campo sexo
     public enum Sexo {
         M, F, OUTRO
